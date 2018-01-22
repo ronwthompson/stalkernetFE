@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import RaisedButton from './components/RaisedButton'
 import MediaCard from './components/MediaCard'
-import './App.css'
 
-class App extends Component {
+class SearchForm extends Component {
   constructor(props){
     super(props)
   }
@@ -19,13 +18,11 @@ class App extends Component {
         'Accept': 'application/json',
       }
     })
-    // const person = await response.json()
-    // console.log(person)
   }
 
   render() {
     return (
-      <div className="App">
+      <div>
         <div className="jumbotron">
           <h1>StalkerNET</h1>
         </div>
@@ -43,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default SearchForm;
