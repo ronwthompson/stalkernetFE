@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
+import Card, { CardActions, CardMedia } from 'material-ui/Card';
 import RejectFace from './RejectFace'
 import AcceptFace from './AcceptFace'
 const bg = require('../testface.png')

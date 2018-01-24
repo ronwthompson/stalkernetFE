@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import RaisedButton from './components/RaisedButton'
-import MediaCard from './components/MediaCard'
+import RaisedButton from './RaisedButton'
 
 class SearchForm extends Component {
   constructor(props){
@@ -31,9 +30,6 @@ class SearchForm extends Component {
             <input type='text' placeholder='Instagram Username' id='searchValue' />
             <RaisedButton submitForm={ this.submitForm }/>
           </form>
-        </div>
-        <div>
-          <MediaCard />
         </div>
       </div>
     );
