@@ -9,7 +9,7 @@ class SearchForm extends Component {
   submitForm = async (e) => {
     e.preventDefault()
     let search = document.getElementById('searchValue').value
-    const response = await fetch(`http://localhost:8000/faces/${search}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/instagram/${search}`, {
       method: 'POST',
       body: JSON.stringify({ username: search }),
       headers: {

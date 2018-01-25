@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   // verifyToken = async () => {
-  //   const response = await fetch(`http://localhost:8000/api/users/current`, {
+  //   const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/current`, {
   //     method: 'GET',
   //     headers: {
   //       'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ class App extends Component {
   loginUser = async () => {
     const username = document.getElementById('username').value
     const password = document.getElementById('password').value
-    const response = await fetch(`http://localhost:8000/auth/login`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: {

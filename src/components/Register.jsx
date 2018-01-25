@@ -25,7 +25,7 @@ export default class FormDialog extends React.Component {
     const username = document.getElementById('username').value
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
-    const response = await fetch(`http://localhost:8000/auth/register`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
       method: 'POST',
       body: JSON.stringify({ username, email, password }),
       headers: {
