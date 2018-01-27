@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import Menu from './components/Menu'
 import SearchForm from './components/SearchForm'
+import Quiz from './components/Quiz'
+
+const quizStyle = {
+  width: '90%',
+  textAlign: 'center',
+  margin: 'auto'
+}
 
 class App extends Component {
   constructor(props){
@@ -19,6 +26,12 @@ class App extends Component {
         handleLoginOpen: this.handleLoginOpen,
         handleLoginClose: this.handleLoginClose,
         handleSnackbarClose: this.handleSnackbarClose
+      },
+      quizState: {
+        quizUsername: new URL(window.location).searchParams.get('quiz'),
+        quizFaces: JSON.parse(atob(new URL(window.location).searchParams.get('faces'))),
+        allStatus: Array(JSON.parse(atob(new URL(window.location).searchParams.get('faces'))).length).fill(false),
+        quizClick: this.quizClick
       }
     }
   }
@@ -86,11 +99,16 @@ class App extends Component {
     this.setState({ snackbarOpen: false })
   }
 
+  quizClick = (index, status) => {
+    this.state.quizState.allStatus.splice(index, 1, status)
+  }
+
   render() {
     return (
       <div>
         <Menu state={this.state} />
-        { this.state.loggedIn ? <SearchForm /> : <div></div> }
+        { this.state.loggedIn ? <div><SearchForm /></div> : <div></div> }
+        { this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /></div> : <div></div> }
       </div>
     )
   }

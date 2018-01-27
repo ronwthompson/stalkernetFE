@@ -4,15 +4,17 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardMedia } from 'material-ui/Card';
 import RejectFace from './RejectFace'
 import AcceptFace from './AcceptFace'
-const bg = require('../testface.png')
+const facesFolder = require.context('../faces', true)
 
 const styles = {
   card: {
     maxWidth: 150,
+    display: 'inline-block',
+    margin: '10px 10px'
   },
   media: {
     height: 150
-  },
+  }
 }
 
 class SimpleMediaCard extends Component {
@@ -20,7 +22,6 @@ class SimpleMediaCard extends Component {
     super(props)
 
     this.state = {
-      reject: true,
       accept: false,
       acceptColor: '#e0e0e0',
       rejectColor: 'red'
@@ -28,10 +29,10 @@ class SimpleMediaCard extends Component {
   }
 
   acceptClick = () => {
+    this.props.state.quizState.quizClick(this.props['data-key'], true)
     if (!this.state.accept){
       this.setState(prev => {
         return {
-        reject: false,
         accept: true,
         acceptColor: 'green',
         rejectColor: '#e0e0e0'
@@ -40,10 +41,10 @@ class SimpleMediaCard extends Component {
   }
 
   rejectClick = () => {
-    if (!this.state.reject){
+    this.props.state.quizState.quizClick(this.props['data-key'], false)
+    if (this.state.accept){
       this.setState(prev => {
         return {
-        reject: true,
         accept: false,
         acceptColor: '#e0e0e0',
         rejectColor: 'red'
@@ -53,20 +54,17 @@ class SimpleMediaCard extends Component {
 
   render(){
     const { classes } = this.props
+    const face = facesFolder(`./${this.props.imageName}`)
     return (
-      <div>
+      <span>
         <Card className={ classes.card }>
-          <CardMedia
-            className={ classes.media }
-            image={ bg }
-            title="Test Face"
-          />
+          <img src={face} />
           <CardActions>
             <RejectFace click={ this.rejectClick } color={ this.state.rejectColor } />
             <AcceptFace click={ this.acceptClick } color={ this.state.acceptColor } />
           </CardActions>
         </Card>
-      </div>
+      </span>
     )
   }
 }

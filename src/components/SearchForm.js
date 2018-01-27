@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import RaisedButton from './RaisedButton'
 
 class SearchForm extends Component {
-  constructor(props){
-    super(props)
-  }
 
   submitForm = async (e) => {
     e.preventDefault()

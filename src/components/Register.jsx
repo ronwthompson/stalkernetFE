@@ -1,12 +1,7 @@
 import React from 'react';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from 'material-ui/Dialog';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
 export default class FormDialog extends React.Component {
   state = {
@@ -39,7 +34,7 @@ export default class FormDialog extends React.Component {
 
   render() {
     return (
-      <div>
+      <span>
         <Button onClick={this.handleClickOpen}>Register</Button>
         <Dialog
           open={this.state.open}
@@ -80,7 +75,7 @@ export default class FormDialog extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </span>
     )
   }
 }

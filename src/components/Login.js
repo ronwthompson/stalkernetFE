@@ -1,13 +1,13 @@
 import React from 'react'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-import Dialog, { DialogActions, DialogContent, DialogContentText, DialogTitle } from 'material-ui/Dialog'
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog'
 
 
 export default class LoginRegister extends React.Component {
   render() {
     return (
-      <div>
+      <span>
         <Button onClick={this.props.state.stateFunctions.handleLoginOpen}>Log In</Button>
         <Dialog
           open={this.props.state.loginOpen}
@@ -41,7 +41,7 @@ export default class LoginRegister extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </span>
     )
   }
 }
