@@ -104,7 +104,7 @@ class App extends Component {
     this.state.quizState.allStatus.splice(index, 1, status)
   }
 
-  submitQuiz = () => {
+  submitQuiz = async () => {
     const quizResults = {
       username: this.state.quizState.quizUsername,
       files: this.state.quizState.quizFaces,
