@@ -105,7 +105,20 @@ class App extends Component {
   }
 
   submitQuiz = () => {
-    console.log(this.state.quizState.allStatus)
+    const quizResults = {
+      username: this.state.quizState.quizUsername,
+      files: this.state.quizState.quizFaces,
+      accepted: this.state.quizState.allStatus
+    }
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/quiz/${this.state.quizState.quizUsername}`, {
+      method: 'POST',
+      body: JSON.stringify(quizResults),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const json = await response.json()
   }
 
   render() {
