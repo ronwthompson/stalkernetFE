@@ -29,9 +29,10 @@ class App extends Component {
       },
       quizState: {
         quizUsername: new URL(window.location).searchParams.get('quiz'),
-        quizFaces: JSON.parse(atob(new URL(window.location).searchParams.get('faces'))),
-        allStatus: Array(JSON.parse(atob(new URL(window.location).searchParams.get('faces'))).length).fill(false),
-        quizClick: this.quizClick
+        quizFaces: new URL(window.location).searchParams.get('faces') ? JSON.parse(atob(new URL(window.location).searchParams.get('faces'))) : '',
+        allStatus: new URL(window.location).searchParams.get('faces') ? Array(JSON.parse(atob(new URL(window.location).searchParams.get('faces'))).length).fill(false) : '',
+        quizClick: this.quizClick,
+        submitQuiz: this.submitQuiz
       }
     }
   }
@@ -101,6 +102,10 @@ class App extends Component {
 
   quizClick = (index, status) => {
     this.state.quizState.allStatus.splice(index, 1, status)
+  }
+
+  submitQuiz = () => {
+    console.log(this.state.quizState.allStatus)
   }
 
   render() {
