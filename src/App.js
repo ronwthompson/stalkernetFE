@@ -29,8 +29,8 @@ class App extends Component {
       },
       quizState: {
         quizUsername: new URL(window.location).searchParams.get('quiz'),
-        quizFaces: new URL(window.location).searchParams.get('faces') ? JSON.parse(atob(new URL(window.location).searchParams.get('faces'))) : '',
-        allStatus: new URL(window.location).searchParams.get('faces') ? Array(JSON.parse(atob(new URL(window.location).searchParams.get('faces'))).length).fill(false) : '',
+        quizFaces: this.checkURIFaces(),
+        allStatus: new URL(window.location).searchParams.get('faces') ? Array(this.checkURIFaces().length).fill(false) : '',
         quizClick: this.quizClick,
         submitQuiz: this.submitQuiz
       }
@@ -56,6 +56,16 @@ class App extends Component {
   //   console.log(json)
   //   return json
   // }
+
+  checkURIFaces(){
+    if (atob(new URL(window.location).searchParams.get('faces'))[0] == '['){
+      return JSON.parse(atob(new URL(window.location).searchParams.get('faces')))
+    } else if(atob(new URL(window.location).searchParams.get('faces'))[0] == '/'){
+      return atob(new URL(window.location).searchParams.get('faces')).split(',')
+    } else {
+      return ''
+    }
+  }
 
   loginUser = async () => {
     const username = document.getElementById('username').value
