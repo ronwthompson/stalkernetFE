@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Menu from './components/Menu'
 import SearchForm from './components/SearchForm'
 import Quiz from './components/Quiz'
+import Background from './components/Background'
 
 const quizStyle = {
   width: '90%',
@@ -135,7 +136,7 @@ class App extends Component {
     return (
       <div>
         <Menu state={this.state} />
-        { this.state.loggedIn ? <div><SearchForm /></div> : <div></div> }
+        { this.state.loggedIn ? <div><SearchForm /></div> : <div><Background /></div> }
         { this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /></div> : <div></div> }
       </div>
     )
