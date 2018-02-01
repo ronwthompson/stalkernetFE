@@ -1,36 +1,43 @@
 import React, { Component } from 'react'
+import Input, { InputLabel } from 'material-ui/Input'
 import RaisedButton from './RaisedButton'
+import PropTypes from 'prop-types'
+import { withStyles } from 'material-ui/styles'
+import { FormControl, FormHelperText } from 'material-ui/Form'
+
+const styles = theme => ({
+  formControl: {
+    margin: theme.spacing.unit,
+  }
+})
+
+const style = {
+    position: "fixed",
+    height: "100px",
+    width: "195px",
+    top: "40vh",
+    right: "calc(50% - 97.5px)"
+}
 
 class SearchForm extends Component {
 
-  submitForm = async (e) => {
-    e.preventDefault()
-    let search = document.getElementById('searchValue').value
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/instagram/${search}`, {
-      method: 'POST',
-      body: JSON.stringify({ username: search }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }
-    })
-  }
-
   render() {
+    const { classes } = this.props
+
     return (
-      <div>
-        <div className="jumbotron">
-          <h1>StalkerNET</h1>
-        </div>
-        <div>
-          <form onSubmit={ this.submitForm }>
-            <input type='text' placeholder='Instagram Username' id='searchValue' />
-            <RaisedButton submitForm={ this.submitForm }/>
-          </form>
-        </div>
+      <div style={ style }>
+          <FormControl className={ classes.formControl } onSubmit={ this.props.state.submitForm }>
+            <InputLabel htmlFor="name-simple">Instagram ID</InputLabel>
+            <Input id="name-simple" placeholder="Instagram ID" />
+            <RaisedButton submitForm={ this.props.state.submitForm }/>
+          </FormControl>
       </div>
-    );
+    )
   }
 }
 
-export default SearchForm;
+SearchForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(SearchForm)

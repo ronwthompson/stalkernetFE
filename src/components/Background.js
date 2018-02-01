@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-const videoMP4 = require('./../video/tilt-coding/MP4/Love-Coding.mp4')
+const videoMP4 = require('./../video/blackTriangles.mp4')
 
 class Background extends Component {
 

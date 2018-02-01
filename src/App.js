@@ -3,6 +3,7 @@ import Menu from './components/Menu'
 import SearchForm from './components/SearchForm'
 import Quiz from './components/Quiz'
 import Background from './components/Background'
+import HowItWorks from './components/HowItWorks'
 
 const quizStyle = {
   width: '90%',
@@ -21,6 +22,7 @@ class App extends Component {
       snackbarOpen: false,
       snackbarMessage: '',
       currentUser: '',
+      submitForm: this.submitForm,
       stateFunctions: {
         loginUser: this.loginUser,
         logoutUser: this.logoutUser,
@@ -130,14 +132,29 @@ class App extends Component {
       }
     })
     const json = await response.json()
+    this.setState({ snackbarOpen: true, snackbarMessage: json.message })
+  }
+
+  submitForm = async (e) => {
+    e.preventDefault()
+    let search = document.getElementById('name-simple').value
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/instagram/${search}`, {
+      method: 'POST',
+      body: JSON.stringify({ username: search }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    })
+    const json = await response.json()
+    this.setState({ snackbarOpen: true, snackbarMessage: json.message })
   }
 
   render() {
     return (
       <div>
         <Menu state={this.state} />
-        { this.state.loggedIn ? <div><SearchForm /></div> : <div><Background /></div> }
-        { this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /></div> : <div></div> }
+        { this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /></div> : this.state.loggedIn ? <div><SearchForm state={ this.state }/><HowItWorks /></div> : <div><Background /></div> }
       </div>
     )
   }
