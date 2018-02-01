@@ -4,6 +4,7 @@ import SearchForm from './components/SearchForm'
 import Quiz from './components/Quiz'
 import Background from './components/Background'
 import HowItWorks from './components/HowItWorks'
+import Results from './components/Results'
 
 const quizStyle = {
   width: '90%',
@@ -36,7 +37,8 @@ class App extends Component {
         allStatus: new URL(window.location).searchParams.get('faces') ? Array(this.checkURIFaces().length).fill(false) : '',
         quizClick: this.quizClick,
         submitQuiz: this.submitQuiz
-      }
+      },
+      results: new URL(window.location).searchParams.get('results')
     }
   }
 
@@ -154,7 +156,11 @@ class App extends Component {
     return (
       <div>
         <Menu state={this.state} />
-        { this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /></div> : this.state.loggedIn ? <div><SearchForm state={ this.state }/><HowItWorks /></div> : <div><Background /></div> }
+        { this.state.loggedIn ? 
+              this.state.results ? <Results state={ this.state } /> : 
+                  this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /></div> : 
+                      <div><SearchForm state={ this.state }/><HowItWorks /></div>
+          : <div><Background /></div> }
       </div>
     )
   }
