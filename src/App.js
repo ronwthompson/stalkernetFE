@@ -60,6 +60,12 @@ class App extends Component {
       }
     })
     const json = await response.json()
+    this.setState(prev => {
+      return {
+        ...prev,
+        currentUser: json.currentUser
+      }
+    })
     return json
   }
 
@@ -87,7 +93,8 @@ class App extends Component {
     const json = await response.json()
     if (json.authorization) {
       localStorage.setItem('stalker_token', json.authorization)
-      this.setState({ snackbarOpen: true, loginOpen: false, snackbarMessage: `Logged in.  Welcome ${username}!`, currentUser: username })
+      this.setState({ snackbarOpen: true, loginOpen: false, snackbarMessage: `Logged in.  Welcome ${username}!` })
+      const verifyInfo = this.verifyToken()
     } else if (json.message) {
       this.setState({ snackbarOpen: true, snackbarMessage: json.message })
     }
