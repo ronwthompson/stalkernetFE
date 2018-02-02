@@ -5,17 +5,18 @@ class Results extends Component {
         super(props)
 
         this.state = {
-            results: {}
+            results: {
+                others: []
+            }
         }
     }
 
     componentWillMount = async () => {
         const data = await this.getInfo()
-        console.log("will mount: ", data)
     }
 
     getInfo = async () => {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/instagram/${this.props.state.results}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/instagram/all/${this.props.state.results}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -50,6 +51,7 @@ class Results extends Component {
                     { this.state.results.tumbler ? <a href={`http://www.facebook.com/${this.state.results.tumbler}`} target='_blank'><li>Tumbler Profile</li></a> : '' }
                     { this.state.results.twitter ? <a href={`http://twitter.com/${this.state.results.twitter}`} target='_blank'><li>Twitter Profile</li></a> : '' }
                     { this.state.results.yelp ? <a href={`http://www.facebook.com/${this.state.results.yelp}`} target='_blank'><li>Yelp Profile</li></a> : '' }
+                    { this.state.results.others.map(object => <a href={object.other_link} target='_blank'><li>{ object.other_link }</li></a>) }
                 </ul>
             </div>
             )

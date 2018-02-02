@@ -22,7 +22,7 @@ class App extends Component {
       loginOpen: false,
       snackbarOpen: false,
       snackbarMessage: '',
-      currentUser: '',
+      currentUser: {},
       submitForm: this.submitForm,
       stateFunctions: {
         loginUser: this.loginUser,
@@ -42,25 +42,26 @@ class App extends Component {
     }
   }
 
+  componentWillMount(){
+    const verifyInfo = this.verifyToken()
+  }
+
   componentWillUpdate(nextProps, nextState){
-    // const verifyInfo = this.verifyToken()
-    // nextState.loggedIn = verifyInfo.currentUser === 'guest' ? false : true
     return nextState.loggedIn = localStorage.getItem('stalker_token') ? true : false
   }
 
-  // verifyToken = async () => {
-  //   const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/current`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       'auth': localStorage.getItem('stalker_token')
-  //     }
-  //   })
-  //   const json = await response.json()
-  //   console.log(json)
-  //   return json
-  // }
+  verifyToken = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/current`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'auth': localStorage.getItem('stalker_token')
+      }
+    })
+    const json = await response.json()
+    return json
+  }
 
   checkURIFaces(){
     if (atob(new URL(window.location).searchParams.get('faces'))[0] == '['){
@@ -123,7 +124,8 @@ class App extends Component {
     const quizResults = {
       username: this.state.quizState.quizUsername,
       files: this.state.quizState.quizFaces,
-      accepted: this.state.quizState.allStatus
+      accepted: this.state.quizState.allStatus,
+      email: this.state.currentUser.email
     }
     const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/quiz/${this.state.quizState.quizUsername}`, {
       method: 'POST',
@@ -142,7 +144,7 @@ class App extends Component {
     let search = document.getElementById('name-simple').value
     const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/instagram/${search}`, {
       method: 'POST',
-      body: JSON.stringify({ username: search }),
+      body: JSON.stringify({ email: this.state.currentUser.email }),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
