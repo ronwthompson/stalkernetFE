@@ -5,7 +5,14 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-const theme = createMuiTheme()
+// const theme = createMuiTheme()
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+})
+
 
 const View = () => (
   <MuiThemeProvider theme={theme}>

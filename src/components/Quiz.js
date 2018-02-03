@@ -3,6 +3,10 @@ import MediaCard from './SimpleMediaCard'
 import Button from 'material-ui/Button'
 const path = require('path')
 
+const style = {
+  color: "#777777"
+}
+
 class Quiz extends Component {
 
   render(){
@@ -10,7 +14,7 @@ class Quiz extends Component {
     const faces = this.props.state.quizState.quizFaces
     return (
       <div>
-      <p>Please check which faces are your intended target.</p>
+      <p style={ style }>Please check which faces are your intended target.</p>
       {faces.map((e,i) => {
                 const filePath = e.split('/')
                 const imageName = path.join(filePath[filePath.length-3],filePath[filePath.length-2],filePath[filePath.length-1])

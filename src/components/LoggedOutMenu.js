@@ -3,7 +3,6 @@ import Login from './Login'
 import Register from './Register'
 
 const style = {
-    backgroundColor: "#FFF",
     position: "fixed",
     height: "36px",
     width: "200px",
