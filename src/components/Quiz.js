@@ -12,7 +12,6 @@ class Quiz extends Component {
   render(){
     const username = this.props.state.quizState.quizUsername
     const faces = this.props.state.quizState.quizFaces
-    console.log(faces)
     return (
       <div>
       <p style={ style }>Please check which faces are your intended target.</p>

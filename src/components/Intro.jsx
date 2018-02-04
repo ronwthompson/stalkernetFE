@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-const incog = require('../video/incognito.png')
+const incog = require('../video/logo.png')
 
 class Intro extends Component {
     render(){

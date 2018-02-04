@@ -5,13 +5,23 @@ import Quiz from './components/Quiz'
 import Background from './components/Background'
 import HowItWorks from './components/HowItWorks'
 import PaperResults from './components/PaperResults'
+import QuizStart from './components/QuizStart'
 import Submission from './components/Submission'
 import Intro from './components/Intro'
+const incog = require('./video/logo.png')
 
 const quizStyle = {
   width: '90%',
   textAlign: 'center',
   margin: 'auto'
+}
+
+const incogStyle = {
+  position: 'fixed',
+  height: "200px",
+  bottom: 0,
+  left: 0,
+  zIndex: -2
 }
 
 class App extends Component {
@@ -103,7 +113,7 @@ class App extends Component {
   loginUser = async () => {
     const username = document.getElementById('username').value
     const password = document.getElementById('password').value
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/login`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: {
@@ -191,9 +201,9 @@ class App extends Component {
       <div>
         <Menu state={this.state} />
         { this.state.loggedIn ? 
-              this.state.results ? <PaperResults state={ this.state } /> : 
-                  this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /><Submission state={ this.state } /></div> : 
-                      <div><SearchForm state={ this.state }/><HowItWorks /><Submission state={ this.state } /></div>
+              this.state.results ? <span><PaperResults state={ this.state } /><img src={incog} style={incogStyle} /></span> : 
+                  this.state.quizState.quizUsername ? <div style={ quizStyle }><img src={incog} style={incogStyle} /><Quiz state={ this.state } /><QuizStart /><Submission state={ this.state } /></div> : 
+                      <div><img src={incog} style={incogStyle} /><SearchForm state={ this.state }/><HowItWorks /><Submission state={ this.state } /></div>
           : <div><Background /><Intro /></div> }
       </div>
     )
