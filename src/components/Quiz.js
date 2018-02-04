@@ -12,14 +12,17 @@ class Quiz extends Component {
   render(){
     const username = this.props.state.quizState.quizUsername
     const faces = this.props.state.quizState.quizFaces
+    console.log(faces)
     return (
       <div>
       <p style={ style }>Please check which faces are your intended target.</p>
-      {faces.map((e,i) => {
-                const filePath = e.split('/')
+      { faces.length ? faces.map((e,i) => {
+                let filePath = ''
+                if (e.includes('/')) filePath = e.split('/')
+                else if (e.includes('\\')) filePath = e.split('\\')
                 const imageName = path.join(filePath[filePath.length-3],filePath[filePath.length-2],filePath[filePath.length-1])
-                return <MediaCard state={ this.props.state } key={ i } data-key={ i } imageName={ imageName } data-user={ username } picture={ path.join(...filePath) } />
-              })}
+                return <MediaCard state={ this.props.state } key={ i } data-key={ i } imageName={ imageName } data-user={ username } />
+              }) : ''}
       <div>
         <Button onClick={this.props.state.quizState.submitQuiz}>All Done!</Button>
       </div>

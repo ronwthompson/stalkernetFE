@@ -4,7 +4,8 @@ import SearchForm from './components/SearchForm'
 import Quiz from './components/Quiz'
 import Background from './components/Background'
 import HowItWorks from './components/HowItWorks'
-import Results from './components/Results'
+import PaperResults from './components/PaperResults'
+import Submission from './components/Submission'
 
 const quizStyle = {
   width: '90%',
@@ -21,7 +22,9 @@ class App extends Component {
       registerOpen: false,
       loginOpen: false,
       snackbarOpen: false,
+      submitMessageOpen: false,
       snackbarMessage: '',
+      submitMessage: '',
       currentUser: {},
       submitForm: this.submitForm,
       stateFunctions: {
@@ -29,12 +32,13 @@ class App extends Component {
         logoutUser: this.logoutUser,
         handleLoginOpen: this.handleLoginOpen,
         handleLoginClose: this.handleLoginClose,
-        handleSnackbarClose: this.handleSnackbarClose
+        handleSnackbarClose: this.handleSnackbarClose,
+        submitClose: this.submitClose
       },
       quizState: {
-        quizUsername: new URL(window.location).searchParams.get('quiz'),
-        quizFaces: this.checkURIFaces(),
-        allStatus: new URL(window.location).searchParams.get('faces') ? Array(this.checkURIFaces().length).fill(false) : '',
+        quizUsername: '',
+        quizFaces: [],
+        allStatus: [],
         quizClick: this.quizClick,
         submitQuiz: this.submitQuiz
       },
@@ -44,6 +48,7 @@ class App extends Component {
 
   componentWillMount(){
     const verifyInfo = this.verifyToken()
+    const getFaces = this.checkURIFaces()
   }
 
   componentWillUpdate(nextProps, nextState){
@@ -69,20 +74,35 @@ class App extends Component {
     return json
   }
 
-  checkURIFaces(){
-    if (atob(new URL(window.location).searchParams.get('faces'))[0] == '['){
-      return JSON.parse(atob(new URL(window.location).searchParams.get('faces')))
-    } else if(atob(new URL(window.location).searchParams.get('faces'))[0] == '/'){
-      return atob(new URL(window.location).searchParams.get('faces')).split(',')
-    } else {
-      return ''
+  checkURIFaces = async () => {
+    const name = new URL(window.location).searchParams.get('quiz')
+    if (name){
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/${name}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      })
+      const json = await response.json()
+      this.setState(prev => {
+      return {
+        ...prev,
+        quizState: {
+          quizUsername: name,
+          quizFaces: json,
+          allStatus: Array(json.length).fill(false)
+        }
+      }
+    })
+      return json
     }
   }
 
   loginUser = async () => {
     const username = document.getElementById('username').value
     const password = document.getElementById('password').value
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/faces/login`, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: {
@@ -116,6 +136,10 @@ class App extends Component {
     this.setState({ loginOpen: false })
   }
 
+  submitClose = () => {
+    this.setState({ submitMessageOpen: false })
+  }
+
   handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -143,7 +167,7 @@ class App extends Component {
       }
     })
     const json = await response.json()
-    this.setState({ snackbarOpen: true, snackbarMessage: json.message })
+    this.setState({ submitMessageOpen: true, submitMessage: json.message })
   }
 
   submitForm = async (e) => {
@@ -158,7 +182,7 @@ class App extends Component {
       }
     })
     const json = await response.json()
-    this.setState({ snackbarOpen: true, snackbarMessage: json.message })
+    this.setState({ submitMessageOpen: true, submitMessage: json.message })
   }
 
   render() {
@@ -166,9 +190,9 @@ class App extends Component {
       <div>
         <Menu state={this.state} />
         { this.state.loggedIn ? 
-              this.state.results ? <Results state={ this.state } /> : 
-                  this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /></div> : 
-                      <div><SearchForm state={ this.state }/><HowItWorks /></div>
+              this.state.results ? <PaperResults state={ this.state } /> : 
+                  this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /><Submission state={ this.state } /></div> : 
+                      <div><SearchForm state={ this.state }/><HowItWorks /><Submission state={ this.state } /></div>
           : <div><Background /></div> }
       </div>
     )

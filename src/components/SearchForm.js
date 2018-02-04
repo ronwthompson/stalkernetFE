@@ -29,7 +29,7 @@ class SearchForm extends Component {
           <FormControl className={ classes.formControl } onSubmit={ this.props.state.submitForm }>
             <InputLabel htmlFor="name-simple">Instagram ID</InputLabel>
             <Input id="name-simple" placeholder="Instagram ID" />
-            <RaisedButton submitForm={ this.props.state.submitForm }/>
+            <RaisedButton id="searchButton" submitForm={ this.props.state.submitForm }/>
           </FormControl>
       </div>
     )

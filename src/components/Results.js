@@ -1,21 +1,30 @@
 import React, { Component } from 'react'
-import Avatar from 'material-ui/Avatar'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
-import { withStyles } from 'material-ui/styles'
+import ResultsCard from './ResultsCard'
 
 const divStyle = {
-    color: "#777777"
+    color: "#DDDDDD"
 }
 
-const styles = {
-  avatar: {
-    margin: 10,
-  },
-  bigAvatar: {
-    width: 60,
-    height: 60,
-  },
+const inlineStyle = {
+    display: "inline-block",
+    verticalAlign: "middle"
+}
+
+const inlineStyle2 = {
+    display: "inline-block",
+    verticalAlign: "middle",
+    marginLeft: "50px"
+}
+
+const picStyle = {
+    borderRadius: "50%",
+    height: "250px"
+}
+
+const linkStyle = {
+    textDecoration: "none",
+    color: "#DDDDDD",
+    verticalAlign: "middle"
 }
 
 class Results extends Component {
@@ -50,35 +59,34 @@ class Results extends Component {
         const { classes } = this.props
         return (
             <div style={divStyle}>
-                <div>
-                    <h1>First Name:{this.state.results.first_name}</h1>
-                    { this.state.results.last_name ? <h1>Last Name:{this.state.results.last_name}</h1> : '' }
-                    <h4>Location:{this.state.results.location}</h4>
+                <div style={{ textAlign: "center", marginBottom: "50px"}}>
+                    <div style={inlineStyle}>
+                        <img src={this.state.results.instagram_image} alt={`${this.state.results.first_name}'s main photo`} style={picStyle} />
+                    </div>
+                    <div style={inlineStyle2}>
+                        <h1>First Name: {this.state.results.first_name}</h1>
+                        { this.state.results.last_name ? <h1>Last Name: {this.state.results.last_name}</h1> : '' }
+                        <h4>Location: {this.state.results.location}</h4>
+                    </div>
                 </div>
-                <ul>
-                    { this.state.results.facebook ? <a href={`http://www.facebook.com/${this.state.results.facebook}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Facebook Pic`} src={this.state.results.facebook_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Facebook Profile</li></a> : '' }
-                    { this.state.results.flickr ? <a href={`http://www.flickr.com/${this.state.results.flickr}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Flickr Pic`} src={this.state.results.flickr_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Flickr Profile</li></a> : '' }
-                    { this.state.results.foursquare ? <a href={`http://www.foursquare.com/${this.state.results.foursquare}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Foursquare Pic`} src={this.state.results.foursquare_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Foursquare Profile</li></a> : '' }
-                    { this.state.results.goodreads ? <a href={`http://www.goodreads.com/${this.state.results.goodreads}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s GoodReads Pic`} src={this.state.results.goodreads_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>GoodReads Profile</li></a> : '' }
-                    { this.state.results.googleplus ? <a href={`http://plus.gooogle.com/${this.state.results.googleplus}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s GooglePlus Pic`} src={this.state.results.googleplus_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>GooglePlus Profile</li></a> : '' }
-                    { this.state.results.instagram ? <a href={`http://instagram.com/${this.state.results.instagram}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Instagram Pic`} src={this.state.results.instagram_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Instagram Profile</li></a> : '' }
-                    { this.state.results.linkedin ? <a href={`http://www.linkedin.com/${this.state.results.linkedin}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s LinkedIn Pic`} src={this.state.results.linkedin_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>LinkedIn Profile</li></a> : '' }
-                    { this.state.results.livejournal ? <a href={`http://www.livejournal.com/${this.state.results.livejournal}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s LiveJournal Pic`} src={this.state.results.livejournal_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>LiveJournal Profile</li></a> : '' }
-                    { this.state.results.meetup ? <a href={`http://www.meetup.com/${this.state.results.meetup}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Meetup Pic`} src={this.state.results.meetup_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Meetup Profile</li></a> : '' }
-                    { this.state.results.myspace ? <a href={`http://www.myspace.com/${this.state.results.myspace}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s MySpace Pic`} src={this.state.results.myspace_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>MySpace Profile</li></a> : '' }
-                    { this.state.results.pinterest ? <a href={`http://www.pinterest.com/${this.state.results.pinterest}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Pinterest Pic`} src={this.state.results.pinterest_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Pinterest Profile</li></a> : '' }
-                    { this.state.results.tumbler ? <a href={`http://www.tumblr.com/${this.state.results.tumblr}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Tumblr Pic`} src={this.state.results.tumblr_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Tumblr Profile</li></a> : '' }
-                    { this.state.results.twitter ? <a href={`http://twitter.com/${this.state.results.twitter}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Twitter Pic`} src={this.state.results.twitter_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Twitter Profile</li></a> : '' }
-                    { this.state.results.yelp ? <a href={`http://www.yelp.com/${this.state.results.yelp}`} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Yelp Pic`} src={this.state.results.yelp_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>Yelp Profile</li></a> : '' }
-                    { this.state.results.others.map(object => <a href={object.other_link} target='_blank'><Avatar alt={`${this.state.results.first_name}'s Other Pic`} src={object.other_image} className={classNames(classes.avatar, classes.bigAvatar)} /><li>{ object.other_link }</li></a>) }
-                </ul>
+                { this.state.results.facebook ? <ResultsCard card="Facebook" state={this.state.results}/> : '' }
+                { this.state.results.flickr ? <ResultsCard card="Flickr" state={this.state.results}/> : '' }
+                { this.state.results.foursquare ? <ResultsCard card="Foursquare" state={this.state.results}/> : '' }
+                { this.state.results.goodreads ? <ResultsCard card="Goodreads" state={this.state.results}/> : '' }
+                { this.state.results.googleplus ? <ResultsCard card="GooglePlus" state={this.state.results}/> : '' }
+                { this.state.results.instagram ? <ResultsCard card="Instagram" state={this.state.results}/> : '' }
+                { this.state.results.linkedin ? <ResultsCard card="LinkedIn" state={this.state.results}/> : '' }
+                { this.state.results.livejournal ? <ResultsCard card="Livejournal" state={this.state.results}/> : '' }
+                { this.state.results.meetup ? <ResultsCard card="Meetup" state={this.state.results}/> : '' }
+                { this.state.results.myspace ? <ResultsCard card="Myspace" state={this.state.results}/> : '' }
+                { this.state.results.pinterest ? <ResultsCard card="Pinterest" state={this.state.results}/> : '' }
+                { this.state.results.tumbler ? <ResultsCard card="Tumbler" state={this.state.results}/> : '' }
+                { this.state.results.twitter ? <ResultsCard card="Twitter" state={this.state.results}/> : '' }
+                { this.state.results.yelp ? <ResultsCard card="Yelp" state={this.state.results}/> : '' }
+                { this.state.results.others.map(object => <ResultsCard card="Other" link={object.other_link} image={object.other_image} />) }
             </div>
             )
     }
 }
 
-Results.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(Results)
+export default Results

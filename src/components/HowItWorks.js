@@ -44,7 +44,7 @@ class ResponsiveDialog extends React.Component {
               <ol>
                 <li>Enter a person's Instagram ID (without the @) into the search bar and submit.</li>
                 <li>Wait for a bit.  You'll get an email from us when we're ready to ID your subject.</li>
-                <li>Once you get an email from us, click it to verify the faces we've found.  Be sure to only select the faces that you are 100% sure is your subject!</li>
+                <li>Once you get an email from us, click it to verify the faces we've found.  Be sure to only select the faces that you are 100% are your subject!</li>
                 <li>Now you'll have to wait again.  We'll email you again when we've finished stalking your target.</li>
                 <li>In this last email, you'll have a link to a report of everything we've found on your target.  Enjoy the fruits of our labor!</li>
               </ol>
