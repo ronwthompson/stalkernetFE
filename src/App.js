@@ -6,6 +6,7 @@ import Background from './components/Background'
 import HowItWorks from './components/HowItWorks'
 import PaperResults from './components/PaperResults'
 import Submission from './components/Submission'
+import Intro from './components/Intro'
 
 const quizStyle = {
   width: '90%',
@@ -193,7 +194,7 @@ class App extends Component {
               this.state.results ? <PaperResults state={ this.state } /> : 
                   this.state.quizState.quizUsername ? <div style={ quizStyle }><Quiz state={ this.state } /><Submission state={ this.state } /></div> : 
                       <div><SearchForm state={ this.state }/><HowItWorks /><Submission state={ this.state } /></div>
-          : <div><Background /></div> }
+          : <div><Background /><Intro /></div> }
       </div>
     )
   }
