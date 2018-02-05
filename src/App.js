@@ -96,10 +96,12 @@ class App extends Component {
         }
       })
       const json = await response.json()
+      console.log(json)
       this.setState(prev => {
       return {
         ...prev,
         quizState: {
+          quizClick: this.quizClick,
           quizUsername: name,
           quizFaces: json,
           allStatus: Array(json.length).fill(false)
