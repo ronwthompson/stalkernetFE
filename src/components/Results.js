@@ -72,6 +72,7 @@ class Results extends Component {
                 { this.state.results.facebook ? <ResultsCard card="Facebook" state={this.state.results}/> : '' }
                 { this.state.results.flickr ? <ResultsCard card="Flickr" state={this.state.results}/> : '' }
                 { this.state.results.foursquare ? <ResultsCard card="Foursquare" state={this.state.results}/> : '' }
+                { this.state.results.gofundme ? <ResultsCard card="GoFundMe" state={this.state.results}/> : '' }
                 { this.state.results.goodreads ? <ResultsCard card="Goodreads" state={this.state.results}/> : '' }
                 { this.state.results.googleplus ? <ResultsCard card="GooglePlus" state={this.state.results}/> : '' }
                 { this.state.results.instagram ? <ResultsCard card="Instagram" state={this.state.results}/> : '' }
