@@ -96,7 +96,6 @@ class App extends Component {
         }
       })
       const json = await response.json()
-      console.log(json)
       this.setState(prev => {
       return {
         ...prev,
@@ -104,7 +103,8 @@ class App extends Component {
           quizClick: this.quizClick,
           quizUsername: name,
           quizFaces: json,
-          allStatus: Array(json.length).fill(false)
+          allStatus: Array(json.length).fill(false),
+          submitQuiz: this.submitQuiz
         }
       }
     })
@@ -165,6 +165,7 @@ class App extends Component {
   }
 
   submitQuiz = async () => {
+    console.log('???')
     const quizResults = {
       username: this.state.quizState.quizUsername,
       files: this.state.quizState.quizFaces,
